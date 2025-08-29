@@ -484,7 +484,12 @@
 #  include <float.h>
 
 #  if (defined(__MWERKS__) && defined(macintosh)) || defined(applec) || \
-    defined(THINK_C) || defined(__SC__) || defined(TARGET_OS_MAC)
+    defined(THINK_C) || defined(__SC__)// || defined(TARGET_OS_MAC)
+   /* Gozio CP-797 - Xcode 16.3 clang compiler is now defining TARGET_OS_MAC,
+    * when building for OSX, but somehow <math.c> is not included, so we end
+    * up looking for non-existent <fp.h>
+   */
+
    /* We need to check that <math.h> hasn't already been included earlier
     * as it seems it doesn't agree with <fp.h>, yet we should really use
     * <fp.h> if possible.
